@@ -37,23 +37,26 @@ python train.py --data data.txt --max-steps 2000 --batch-size 32 --block-size 12
 ```
 
 常用参数：
-- `--n-layer` Transformer 层数
-- `--n-head` 注意力头数
-- `--n-embd` 隐层维度
 - `--lr` 学习率
 - `--out` 模型保存路径
+- `--prompt` 训练结束后用于生成的起始文本
+- `--gen-len` 生成长度
+- `--temperature` 采样温度
 
-## 4. 建议的项目迭代方向
+## 4. 单独推理
+
+训练完成后，可以直接加载保存的 checkpoint 生成文本：
+
+```bash
+python inference.py --ckpt minigpt.pt --prompt "MiniGPT " --gen-len 120
+```
+
+## 5. 建议的项目迭代方向
 
 1. 从字符级改成 BPE/WordPiece 分词
 2. 增加学习率 warmup + cosine decay
 3. 支持混合精度训练（AMP）
-4. 增加独立 `inference.py`，加载 checkpoint 做交互式生成
+4. 给 `inference.py` 增加 `top-k` 和 `top-p` 采样
 5. 做一个简单 Web Demo（FastAPI + 前端）
 
 ---
-
-如果你愿意，我下一步可以继续帮你加上：
-- `inference.py`（加载 `minigpt.pt` 单独推理）
-- `requirements.txt`
-- 一个可直接放到简历里的项目说明模板

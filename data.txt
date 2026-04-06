@@ -1,0 +1,153 @@
+MiniGPT project notes
+
+Artificial intelligence is a broad field that studies how to build systems that can perform tasks that usually require human intelligence.
+Machine learning is a subfield of artificial intelligence.
+Deep learning is a subfield of machine learning that uses layered neural networks.
+Language models learn to predict the next token in a sequence.
+
+Core ideas for learning:
+Start with a simple baseline.
+Measure the result.
+Improve one variable at a time.
+Write down what changed and why.
+
+Neural network concepts:
+An embedding maps a discrete token id to a continuous vector.
+A linear layer applies a learned affine transformation.
+A nonlinearity allows the model to learn complex patterns.
+Backpropagation computes gradients for trainable parameters.
+An optimizer updates parameters to reduce the loss.
+
+Transformer notes:
+The transformer uses attention to mix information across positions.
+Position embeddings tell the model where each token is located.
+The attention score measures how strongly one token should attend to another token.
+During language modeling, a causal mask prevents the model from looking at future tokens.
+The output at each position is used to predict the next token.
+
+Training workflow:
+Load text data from a file.
+Build a vocabulary or tokenizer.
+Encode text into token ids.
+Sample mini-batches of input and target sequences.
+Run the forward pass to compute logits.
+Compute cross entropy loss.
+Call backward to compute gradients.
+Use AdamW or another optimizer to update parameters.
+Repeat for many steps.
+
+Practical engineering notes:
+Small experiments are useful because they run quickly and fail cheaply.
+If the loss does not go down, inspect the data pipeline before changing the model.
+If generation looks repetitive, the dataset may be too small or too repetitive.
+If training is unstable, reduce the learning rate.
+Always save checkpoints so that you can resume or inspect the model later.
+
+Evaluation notes:
+Training loss tells us how well the model fits sampled batches.
+Validation loss tells us whether the model generalizes beyond the exact training samples.
+A lower loss usually means better next-token prediction.
+Generated text quality should be judged by coherence, consistency, and relevance to the prompt.
+
+Study plan:
+Week one focuses on loading data and understanding tokenization.
+Week two focuses on building the smallest possible language model.
+Week three focuses on training loops, checkpoints, and debugging.
+Week four focuses on improving architecture and generation quality.
+
+Question and answer examples:
+Question: What is a token?
+Answer: A token is the basic unit processed by the language model, such as a character, word, or subword.
+
+Question: Why do we need embeddings?
+Answer: Embeddings convert discrete ids into dense vectors that the model can compute with.
+
+Question: What does the loss represent?
+Answer: The loss measures the gap between the model prediction and the true next token.
+
+Question: Why does generation produce nonsense at first?
+Answer: Early in training, the model has not yet learned stable patterns from the dataset.
+
+Reflection notes:
+Understanding the training loop is more important than memorizing jargon.
+A clear small project teaches more than a large project you do not understand.
+Good experiments are reproducible, measurable, and easy to explain.
+Learning AI well means combining math, coding, debugging, and patience.
+
+More study notes:
+A dataset is not only a source of examples, it also defines the style and limits of the model output.
+If the dataset contains many repeated lines, the model may learn to repeat them during generation.
+If the dataset contains clearer explanations, the model may produce clearer explanations.
+Choosing data is one of the most important design decisions in any machine learning project.
+
+Optimization notes:
+Gradient descent updates parameters in the direction that reduces the loss.
+The learning rate controls how large each update step is.
+If the learning rate is too high, training can become unstable.
+If the learning rate is too low, training can become very slow.
+AdamW is often used because it is simple, strong, and widely supported.
+
+Debugging checklist:
+Check whether the input tensor shape matches the model expectation.
+Check whether the target tensor is shifted by one token.
+Check whether the loss decreases after several training steps.
+Check whether the generated samples contain recognizable fragments from the data.
+Check whether the checkpoint can be saved and loaded correctly.
+
+Model scaling notes:
+A larger embedding size can improve model capacity.
+More parameters can help if the dataset is also larger and more diverse.
+Longer context windows allow the model to use more previous tokens.
+Scaling the model without scaling the data often leads to poor results.
+Efficient experimentation requires balancing data size, model size, and compute budget.
+
+Project workflow example:
+First, define a simple objective for the model.
+Second, prepare a clean text corpus.
+Third, run a tiny experiment to verify the pipeline.
+Fourth, inspect losses and generated samples.
+Fifth, improve the model or the data based on evidence.
+Sixth, document the experiment so that it can be repeated later.
+
+Engineering reminders:
+Version your code so that you can compare changes across experiments.
+Keep command line arguments small and explicit.
+Write down the prompt used for generation when saving results.
+Store checkpoints with enough metadata to rebuild the model.
+When something breaks, simplify the setup instead of guessing randomly.
+
+Mini examples:
+Prompt: What is attention?
+Answer: Attention is a mechanism that lets the model decide which earlier tokens matter most for the current prediction.
+
+Prompt: What is overfitting?
+Answer: Overfitting happens when the model memorizes the training data too closely and performs worse on new data.
+
+Prompt: Why do we use a validation split?
+Answer: We use a validation split to estimate how well the model generalizes beyond the exact training text.
+
+Prompt: What does a checkpoint contain?
+Answer: A checkpoint usually contains model weights, tokenizer information, and configuration values needed for loading.
+
+Experiment records:
+Experiment one used a tiny dataset and trained quickly on CPU.
+Experiment two used a cleaner dataset and produced more coherent output.
+Experiment three increased the context length and improved local consistency.
+Experiment four changed the prompt and revealed weaknesses in the training data.
+Experiment five focused on reproducibility and compared multiple random seeds.
+
+Concept review:
+Tokenization decides how raw text is split into units.
+Embeddings transform those units into dense vectors.
+The forward pass computes predictions.
+The loss compares predictions with targets.
+The backward pass computes gradients.
+The optimizer applies updates.
+Generation samples one token at a time from the predicted distribution.
+
+Future directions:
+Character-level models are great for learning but limited in efficiency.
+Subword tokenization is more practical for larger projects.
+Attention blocks can be stacked to create deeper models.
+Sampling strategies such as top-k and top-p can improve output quality.
+Serving the model behind an API is a useful next engineering milestone.
